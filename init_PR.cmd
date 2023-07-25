@@ -10,15 +10,14 @@ SET creation_date=%year%%month%%day%
 CALL :set_company
 SET /p description="Enter Order Description:"
 CALL :confirm "%description%" "purchase description"
-SET folder=PR %creation_date% - %company% - %description%
-SET folder=%folder:"=%
+SET order_info=PR %creation_date% - %description%
+SET order_info=%order_info:"=%
 
 :: Create directories 
-cd "H:\Documents\Purchase Orders"
-mkdir %year%
-cd %year%
-mkdir "%folder%"
-cd %folder%
+CALL :focus_directory "H:\Documents\Purchase Orders"
+CALL :focus_directory "%year%"
+CALL :focus_directory "%company%"
+CALL :focus_directory "%order_info%"
 start .
 mkdir "Receipts"
 
@@ -45,6 +44,12 @@ IF [%company%]==[] (
   CALL :confirm %company% "supplier company"
   )	
 )
+SET company=%company:"=%
+EXIT /B
+
+:focus_directory
+IF NOT EXIST "\%~1" mkdir %1
+cd %1
 EXIT /B
 
 :confirm
@@ -60,6 +65,6 @@ start "" /max "QT %creation_date%.pdf"
 EXIT /B
 
 :exit
-echo.
-SET /p input="%folder% was created. Press [ENTER] to close."
+CALL :script_head
+SET /p input="%company% - %order_info% was created. Press [ENTER] to close."
 GOTO :EOF
