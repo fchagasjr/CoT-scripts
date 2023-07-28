@@ -23,6 +23,7 @@ mkdir "Receipts"
 
 :: Finish and exit
 CALL :rename_quote
+CALL :create_pr
 CALL :exit
 
 :script_head
@@ -62,6 +63,13 @@ CALL :script_head
 SET /p input="Move quote to folder and press [ENTER] to continue."
 move *.pdf "QT %creation_date%.pdf"
 start "" /max "QT %creation_date%.pdf"
+EXIT /B
+
+:create_pr
+CALL :script_head
+start "" /max "H:/Scripts/misc/PR_form.xlsx"
+SET /p input="Update request sheet and press [ENTER] to continue."
+cscript H:/Scripts/xlsx_to_pdf.vbs "%CD%\PR %creation_date%.pdf"
 EXIT /B
 
 :exit
