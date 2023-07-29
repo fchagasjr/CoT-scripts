@@ -3,8 +3,8 @@
 Dim Excel
 Dim ExcelDoc
 
-ExcelFile = "H:\Scripts\misc\PR_form.xlsx"
-PdfFile = WScript.Arguments(0)
+ExcelFile = WScript.Arguments(0)
+PdfFile = WScript.Arguments(1)
 
 'Opens the Excel file'
 Set Excel = CreateObject("Excel.Application")

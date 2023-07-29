@@ -3,6 +3,7 @@
 CALL :script_head
 
 :: Setup variables
+SET drive=%CD:~0,2%
 SET month=%date:~0,2%
 SET day=%date:~3,2%
 SET year=%date:~-4%
@@ -14,7 +15,7 @@ SET order_info=PR %creation_date% - %description%
 SET order_info=%order_info:"=%
 
 :: Create directories 
-CALL :focus_directory "H:\Documents\Purchase Orders"
+CALL :focus_directory "%drive%\Documents\Purchase Orders"
 CALL :focus_directory "%year%"
 CALL :focus_directory "%company%"
 CALL :focus_directory "%order_info%"
@@ -55,24 +56,27 @@ EXIT /B
 
 :confirm
 call :script_head
-SET /p input="%1 was selected as %~2.  Press [ENTER] to continue."
+echo %1 was selected as %~2.
+SET /p input="Press [ENTER] to continue."
 EXIT /B
 
 :rename_quote
 CALL :script_head
-SET /p input="Move quote to folder and press [ENTER] to continue."
+echo Move quote file to folder.
+SET /p input="Press [ENTER] to continue."
 move *.pdf "QT %creation_date%.pdf"
 start "" /max "QT %creation_date%.pdf"
 EXIT /B
 
 :create_pr
 CALL :script_head
-start "" /max "H:/Scripts/misc/PR_form.xlsx"
-SET /p input="Update request sheet and press [ENTER] to continue."
-cscript H:/Scripts/xlsx_to_pdf.vbs "%CD%\PR %creation_date%.pdf"
+start "" /max "%drive%/Scripts/misc/PR_form.xlsx"
+echo Update the purchase request sheet and save it.
+SET /p input="Press [ENTER] to continue."
+cscript %drive%/Scripts/xlsx_to_pdf.vbs "%drive%\Scripts\misc\PR_form.xlsx" "%CD%\PR %creation_date%.pdf"
 EXIT /B
 
 :exit
-CALL :script_head
+::CALL :script_head
 SET /p input="%company% - %order_info% was created. Press [ENTER] to close."
 GOTO :EOF
