@@ -70,7 +70,8 @@ EXIT /B
 
 :create_pr
 CALL :script_head
-start "" /max "%drive%/Scripts/misc/PR_form.xlsx"
+SET pr_form_path=%drive%/Scripts/misc/PR_form.xlsx
+cscript %drive%/Scripts/open_PR_form.vbs %pr_form_path% "%company%" "%description%"
 echo Update the purchase request sheet and save it.
 SET /p input="Press [ENTER] to continue."
 cscript %drive%/Scripts/xlsx_to_pdf.vbs "%drive%\Scripts\misc\PR_form.xlsx" "%CD%\PR %creation_date%.pdf"
