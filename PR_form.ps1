@@ -64,9 +64,11 @@ $form.Topmost = $true
 
 $result = $form.ShowDialog()
 
-if ($result -eq [System.Windows.Forms.DialogResult]::OK)
-{
+if ($result -eq [System.Windows.Forms.DialogResult]::OK) {
 	$x = $listBox.SelectedItem
 	$y = $textBox.Text
-    $x, $y
+  $x, $y
+}
+else {
+ exit
 }
