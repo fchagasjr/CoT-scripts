@@ -93,7 +93,7 @@ $documentsListBox.Add_DragDrop([System.Windows.Forms.DragEventHandler]{
 		$s = $outlook.ActiveExplorer().Selection
         foreach ($item in $s){
             foreach($a in $item.Attachments){
-				$file = Join-Path -Path "$pwd\$tempFolder" -ChildPath $a.filename
+				$file = Join-Path -Path "$tempFolder" -ChildPath $a.filename
 				$extension = [System.IO.Path]::GetExtension("$file")
 				if ($extension -eq ".pdf") {
 					$a.SaveAsFile($file)
@@ -126,7 +126,11 @@ $result = $form.ShowDialog()
 if ($result -eq [System.Windows.Forms.DialogResult]::OK) {
 	$supplier = $supplierListBox.SelectedItem
 	$description = $descriptionTextBox.Text
-	$documents = $documentsListBox.Items	
+	$documents = $documentsListBox.Items
+	
+	$supplier, $description, $documents
+} 
+else
+{
+	$result
 }
-
-$supplier, $description, $documents

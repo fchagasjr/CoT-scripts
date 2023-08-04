@@ -25,6 +25,6 @@ ExcelSheet.Cells(17,4).Value = WScript.Arguments(2)
 
 'Cache out Excel files'
 MsgBox("Update the purchase request form, save it and click [OK]")
-ExcelDoc.Saved = True
+ExcelDoc.Save
 ExcelDoc.Close
 Excel = Null
