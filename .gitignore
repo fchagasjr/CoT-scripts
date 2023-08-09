@@ -1,2 +1,2 @@
-db/
-misc/
+/db/*
+/misc/*
