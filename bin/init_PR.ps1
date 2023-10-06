@@ -29,7 +29,9 @@ $order_info = "PR $creation_date - $description"
 
 $new_folder = "$personal_drive\Documents\Purchase Orders\$year\$supplier\$order_info"
 
-powershell.exe $scripts_folder\new_folder.ps1 "$new_folder"
+mkdir "$new_folder"
+
+cd "$new_folder"
 
 mkdir "$new_folder\Receipts"
 
@@ -48,7 +50,5 @@ rm -r "$temp_folder"
 $pr_form_path = "$personal_drive\Scripts\misc\PR_form.xlsx"
 cscript.exe $scripts_folder\open_PR_form.vbs $pr_form_path "$supplier" "$description"
 cscript.exe $scripts_folder\xlsx_to_pdf.vbs "$scripts_folder\..\misc\PR_form.xlsx" "$new_folder\PR $creation_date.pdf"
-
-[System.Windows.MessageBox]::Show("$order_info was created successfully!", "Request Created", "OK", "None")
 
 explorer "$new_folder"
